@@ -2,21 +2,23 @@
 
 The purpose of this document is to provide guidelines for writing CSS. Code conventions are important for the long-term maintainability of code. Most of the time, developers are maintaining code, either their own or someone else’s. The goal is to have everyone’s code look the same, which allows any developer to easily work on another developer’s code.
 
-We've borrowed some ideas from [Idiomatic CSS](https://github.com/necolas/idiomatic-css) and credited it throughout the document.
+We've used [Idiomatic CSS](https://github.com/necolas/idiomatic-css) and [stubbornella](https://github.com/stubbornella/oocss-code-standards) as a base from which to build.
 
 ### Class Names
 
-Class names should be camel case, with no dashes or underscores.
+Class names should use dashes.
 
 ```css
-/* Good - Use camel case */
-.thisIsGood {}
+/* Good - use dashes */
+.this-is-good {}
+
+/* Bad - don't use camel case */
+.thisIsBad {}
 
 /* Bad - don't use underscores */
 .this_is_bad {}
 
-/* Bad - don't use dashes */
-.this-is-bad {}
+
 ```
 
 ### Indentation
@@ -25,13 +27,13 @@ Each indentation level is made up of four spaces. Do not use tabs. (Please set y
 
 ```css
 /* Good */
-.stubbornella {
+.proboards {
     color: #fff;
     background-color: #000;
 }
 
 /* Bad - all on one line */
-.stubbornella {color: #fff; background-color: #000;}
+.proboards {color: #fff; background-color: #000;}
 ```
 
 Rules inside of `@media` must be indented an additional level.
@@ -39,7 +41,7 @@ Rules inside of `@media` must be indented an additional level.
 ```css
 /* Good */
 @media screen and (max-width:480px) {
-   .stubbornella {
+   .proboards {
        color: green;
    }
 }
@@ -51,17 +53,17 @@ The opening brace should be on the same line as the last selector in the rule an
 
 ```css
 /* Good */
-.stubbornella {
+.proboards {
     color: #fff;
 }
 
 /* Bad - closing brace is in the wrong place */
-.stubbornella {
+.proboards {
     color: #fff;
     }
 
 /* Bad - opening brace missing space */
-.stubbornella{
+.proboards{
     color: #fff;
 }
 ```
@@ -72,21 +74,49 @@ Each property must be on its own line and indented one level. There should be no
 
 ```css
 /* Good */
-.stubbornella {
+.proboards {
     background-color: blue;
     color: red;
 }
 
 /* Bad - missing spaces after colons */
-.stubbornella {
+.proboards {
     background-color:blue;
     color:red;
 }
 
 /* Bad - missing last semicolon */
-.stubbornella {
+.proboards {
     background-color: blue;
     color:red
+}
+```
+
+### Exceptions and slight deviations
+
+Large blocks of single declarations can use a slightly different, single-line
+format. In this case, a space should be included after the opening brace and
+before the closing brace.
+
+```css
+.selector-1 { width: 10%; }
+.selector-2 { width: 20%; }
+.selector-3 { width: 30%; }
+```
+
+Long, comma-separated property values - such as collections of gradients or
+shadows - can be arranged across multiple lines in an effort to improve
+readability and produce more useful diffs. There are various formats that could
+be used; one example is shown below.
+
+```css
+.selector {
+    background-image:
+        linear-gradient(#fff, #ccc),
+        linear-gradient(#f3c, #4ec);
+    box-shadow:
+        1px 1px 1px #000,
+        2px 2px 1px 1px #ccc inset;
 }
 ```
 
@@ -96,7 +126,7 @@ Keep nesting to 3 levels deep.
 
 ```scss
 /* Good */
-.stubbornella {
+.proboards {
     .inner {
       ...
 
@@ -112,7 +142,7 @@ Keep nesting to 3 levels deep.
 }
 
 /* Bad - more than 3 levels of nesting */
-.stubbornella {
+.proboards {
     .inner {
       ...
 
@@ -132,11 +162,11 @@ Keep nesting to 3 levels deep.
 }
 ```
 
-Declare `@extend` followed by `@include` statements first in a declaration block. (Borrowed from [Idiomatic CSS] (https://github.com/necolas/idiomatic-css#4-format))
+Declare `:extend` followed by LESS mixins first in a declaration block.
 
 ```scss
 /* Good */
-.stubbornella {
+.proboards {
     @extend .company;
     @include font-size(14);
     color: #555;
@@ -144,7 +174,7 @@ Declare `@extend` followed by `@include` statements first in a declaration block
 }
 
 /* Bad */
-.stubbornella {
+.proboards {
     color: #555;
     @extend .company;
     font-size: 11px;
@@ -157,7 +187,7 @@ Declare `@extend` followed by `@include` statements first in a declaration block
 When using vendor-prefixed properties, always use the standard property as well. The standard property must always come after all of the vendor-prefixed versions of the same property.
 
 ```css
-.stubbornella {
+.proboards {
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -191,61 +221,62 @@ background: linear-gradient(...); /* W3C */
 ```
 
 Suffix fallback with “Old browsers” and standard property with “W3C”. Add a plus or minus to indicate that a property applies to all previous browsers by the same vendor or all future browsers by the same vendor.
-Using !important
 
-Do not use !important on CSS properties. The only time this is allowed is in a global style (provided by Core team).
+### Using !important
+
+Do not use !important on CSS properties. The only time this is allowed is with the permission of a manager or senior developer, and only after all other options have been exhausted.
 
 ```css
 /* Good */
-.stubbornella {
+.proboards {
    color: red;
 }
 
 /* Bad - don't use !important */
-.stubbornella {
+.proboards {
    color: red !important;
 }
 ```
 
 ### Font Sizing
 
-All font sizes must be specified using rem only with a pixel fall back. Do not use percentages, ems or pixels alone.
+All font sizes must be specified using rem only with a pixel fall back. Do not use percentages, ems or pixels alone. (http://snook.ca/archives/html_and_css/font-size-with-rem)
 
 ```css
 /* Good */
-.stubbornella {
+.proboards {
    font-size: 14px; /* pixel fall back rule should come first */
    font-size: 1.4rem;
 }
 
 /* Bad - uses ems */
-.stubbornella {
+.proboards {
    font-size: 1.2em;
 }
 
 /* Bad - uses percentage */
-.stubbornella {
+.proboards {
    font-size: 86%;
 }
 
 /* Bad - uses pixel only */
-.stubbornella {
+.proboards {
    font-size: 14px;
 }
 ```
 
 ### HEX value
 
-When declaring HEX values, use lowercase and shorthand (where possible) (Borrowed from [Idiomatic CSS] (https://github.com/necolas/idiomatic-css#4-format))
+When declaring HEX values, use lowercase and shorthand (where possible), do not use color names
 
 ```css
 /* Good */
-.stubbornella {
+.proboards {
     color: #ccc;
 }
 
 /* Bad */
-.stubbornella {
+.proboards {
     color: #CCCCCC;
 }
 ```
@@ -256,13 +287,13 @@ Strings should always use double quotes (never single quotes).
 
 ```css
 /* Good */
-.stubbornella:after {
-    content: "Stubbornella";
+.proboards:after {
+    content: "proboards";
 }
 
 /* Bad - single quotes */
-.stubbornella:after {
-    content: 'Stubbornella';
+.proboards:after {
+    content: 'proboards';
 }
 ```
 
@@ -272,12 +303,12 @@ When using a url() value, always use quotes around the actual URL.
 
 ```css
 /* Good */
-.stubbornella {
+.proboards {
     background: url("img/logo.png");
 }
 
 /* Bad - missing quotes */
-.stubbornella {
+.proboards {
     background: url(img/logo.png);
 }
 ```
@@ -310,33 +341,33 @@ Zero values do not require named units, omit the “px” or other unit.
 
 ```css
 /* Good */
-.stubbornella {
+.proboards {
    margin: 0;
 }
 
 /* Bad - uses units */
-.stubbornella {
+.proboards {
    margin: 0px;
 }
 ```
 
 ### Internet Explorer Hacks
 
-Only property hacks are allowed. To target Internet Explorer, use Internet Explorer-specific hacks like * and _ in the normal CSS files. Browser specific styles should not be in separate per-browser stylesheets. We prefer to keep all the CSS for a particular object in one place as it is more maintainable. In addition selector hacks should not be used. Classes like .ie6 increase specificity. Hacks should be kept within the CSS rule they affect and only property hacks should be used.
+Browser specific styles should not be in separate per-browser stylesheets. We prefer to keep all the CSS for a particular object in one place as it is more maintainable.  Classes like .ie8 are available, and are preferred over hacks.
 
 ```css
-/* Good */
-.stubbornella {
-   margin: 0;
-   _margin: -1px;
-}
-
-/* Bad - uses selector hacks */
-.stubbornella {
+/* Good - uses valid CSS */
+.proboards {
    margin: 0px;
 }
-.ie6 .stubbornella {
+.ie8 .proboards {
    margin: -1px;
+}
+
+/* Bad - Hacky */
+.proboards {
+   margin: 0;
+   _margin: -1px;
 }
 ```
 
@@ -444,8 +475,6 @@ Selectors should never use HTML element IDs. Always use classes for applying sty
 }
 ```
 
-The author field should contain the username of the person who first created the file. Subsequent authors or primary maintainers may also choose to add their name. The browsers in which this file was tested should be listed next to @tested.
-
 ### Width and height on components
 
 No heights on anything that contains text. Components should be flexible and their widths should be controlled by grids.
@@ -508,17 +537,47 @@ However when extending a component and styling the inner elements, try to use th
 
 ### Comments
 
-We follow the commenting guideline from [Idiomatic CSS] (https://github.com/necolas/idiomatic-css#comments) with the following exception:
-* Place comment on the same line as the CSS declaration it's related to.
+Well commented code is extremely important. Take time to describe components,
+how they work, their limitations, and the way they are constructed. Don't leave
+others in the team guessing as to the purpose of uncommon or non-obvious
+code.
 
-Also, add file-level comments at the top of every CSS file, describing the file in the following format:
+Comment style should be simple and consistent within a single code base.
+
+* Place comments on a new line above their subject.
+* Keep line-length to a sensible maximum, e.g., 80 columns.
+* Make liberal use of comments to break CSS code into discrete sections.
+* Use "sentence case" comments and consistent text indentation.
+
+Tip: configure your editor to provide you with shortcuts to output agreed-upon
+comment patterns.
+
+Example:
 
 ```css
+/* ==========================================================================
+   Section comment block
+   ========================================================================== */
+
+/* Sub-section comment block
+   ========================================================================== */
+
 /**
-* @desc         Description of the file.
-* @name         Simple name for the file (i.e., Search_Widget)
-* @author       username
-* @tested       browsers
-* @requires     helpers.css (tied to the @name of another file)
-*/
+ * Short description using Doxygen-style comment format
+ *
+ * The first sentence of the long description starts here and continues on this
+ * line for a while finally concluding here at the end of this paragraph.
+ *
+ * The long description is ideal for more detailed explanations and
+ * documentation. It can include example HTML, URLs, or any other information
+ * that is deemed necessary or useful.
+ *
+ * @tag This is a tag named 'tag'
+ *
+ * TODO: This is a todo statement that describes an atomic task to be completed
+ *   at a later date. It wraps after 80 characters and following lines are
+ *   indented by 2 spaces.
+ */
+
+/* Basic comment */
 ```
