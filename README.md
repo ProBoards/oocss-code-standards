@@ -6,7 +6,7 @@ We've used [Idiomatic CSS](https://github.com/necolas/idiomatic-css) and [stubbo
 
 ### Class Names
 
-Class names should use dashes.
+Class names should use dashes.  When dealing with code that may interact with older templates, prefer to leave class names unchanged, to preserve backwards compatibility with older templates.
 
 ```css
 /* Good - use dashes */
