@@ -208,16 +208,23 @@ border-radius: 4px;
         border-radius:4px;
 ```
 
-Suffix property value pairs that apply only to a particular browser or class of browsers with a comment listing browsers affected.
+Prefix property value pairs that apply only to a particular browser or class of browsers with a comment listing browsers affected.
 
 ```css
-background: #fcfcfc; /* Old browsers */
-background: -moz-linear-gradient(...); /* FF3.6+ */
-background: -webkit-gradient(...); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(...); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(...); /* Opera 11.10+ */
-background: -ms-linear-gradient(...); /* IE10+ */
-background: linear-gradient(...); /* W3C */
+/* Old browsers */
+background: #fcfcfc;
+/* FF3.6+ */
+background: -moz-linear-gradient(...);
+/* Chrome,Safari4+ */
+background: -webkit-gradient(...);
+/* Chrome10+,Safari5.1+ */
+background: -webkit-linear-gradient(...);
+/* Opera 11.10+ */
+background: -o-linear-gradient(...);
+/* IE10+ */
+background: -ms-linear-gradient(...);
+/* W3C */
+background: linear-gradient(...);
 ```
 
 Suffix fallback with “Old browsers” and standard property with “W3C”. Add a plus or minus to indicate that a property applies to all previous browsers by the same vendor or all future browsers by the same vendor.
@@ -579,5 +586,5 @@ Example:
  *   indented by 2 spaces.
  */
 
-/* Basic comment */
+// Basic comment
 ```
