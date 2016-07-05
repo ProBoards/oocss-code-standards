@@ -17,8 +17,22 @@ Class names should use dashes.  When dealing with code that may interact with ol
 
 /* Bad - don't use underscores */
 .this_is_bad {}
+```
 
+### Consistent Naming
 
+Class names should follow consistent rules and patterns
+
+```css
+/* Good */
+.box-bg {}
+.box-border {}
+.pane-bg {}
+
+/* Bad */
+.box-bg {}
+.border-box {}
+.pane-background {}
 ```
 
 ### Indentation
@@ -122,7 +136,7 @@ be used; one example is shown below.
 
 ### Using CSS Preprocessors
 
-Keep nesting to 3 levels deep. 
+Keep nesting to 3 levels deep at the maximum.  A good rule of thumb is the less nesting the better, as this will stop most specificity issues.
 
 ```scss
 /* Good */
@@ -179,6 +193,62 @@ Declare `:extend` followed by LESS mixins first in a declaration block.
     @extend .company;
     font-size: 11px;
     @include font-size(14);
+}
+```
+
+Explicitly include any needed files at the top of the file.
+
+```scss
+/* Good */
+// TOP OF FILE HERE
+@import "colors.less";
+
+.link {
+    color: @imported-color;
+}
+
+/* Bad */
+// TOP OF FILE HERE
+
+.link {
+    color: @imported-color;
+}
+```
+
+### Mixins
+
+Only create a mixin if it includes more than a single line of functionality.
+
+```scss
+/* Good */
+.flex-md-row {
+    @media only screen and (min-width: @screen-md-min) {
+        .flex-row;
+    }
+}
+
+/* Bad */
+.flex-display {
+    display: flex;
+}
+```
+
+Mixins that will always appear with another declaration should be combined with that declaration
+
+```scss
+/* Good */
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+/* Bad */
+.flex-display {
+    display: flex;
+}
+
+.flex-direction-row {
+    flex-direction: row;
 }
 ```
 
@@ -274,7 +344,7 @@ All font sizes must be specified using rem only with a pixel fall back. Do not u
 
 ### HEX value
 
-When declaring HEX values, use lowercase and shorthand (where possible), do not use color names
+When declaring HEX values, use lowercase and shorthand (where possible), do not use color names.
 
 ```css
 /* Good */
@@ -286,6 +356,18 @@ When declaring HEX values, use lowercase and shorthand (where possible), do not 
 .proboards {
     color: #CCCCCC;
 }
+```
+
+Prefer LESS functions that don't output transparent colors
+
+```css
+/* Good */
+lighten(@color);
+darken(@color);
+
+/* Bad */
+rgba(90, 129, 32, 0.5);
+fade(@color);
 ```
 
 ### String Literals
@@ -547,7 +629,8 @@ However when extending a component and styling the inner elements, try to use th
 Well commented code is extremely important. Take time to describe components,
 how they work, their limitations, and the way they are constructed. Don't leave
 others in the team guessing as to the purpose of uncommon or non-obvious
-code.
+code.  If you're sectioning off unrelated content, that's probably a sign it 
+should be in a different file.
 
 Comment style should be simple and consistent within a single code base.
 
